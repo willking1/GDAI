@@ -17,7 +17,7 @@ class Game {
         // draw player
         this.player.draw();
 
-        //draw spikes
+        // draw spikes
         for(let i=0; i<this.objects.length; i++) {
             if(this.objects[i].x < canvas.width) {
                 this.objects[i].draw();
@@ -27,23 +27,33 @@ class Game {
 
     move() {
         if(this.player.speed != 0) {
-            this.player.y+=this.player.speed;
-            this.player.speed--;
-            if(this.player.speed == -10) this.player.speed = 0;
+            this.player.speed -= 0.05;
+            if(this.player.speed+0.05 > -5 && this.player.speed-0.05 < -5) {
+                this.player.speed = 0;
+            } 
         }
+        this.player.y+=this.player.speed;
         for(let i=0; i<this.objects.length; i++) {
             this.objects[i].x--;
         }
     }
 
     map() {
-        this.objects.push(new Spike(this.horizon, 1000, 0, 50, 50));
-        this.objects.push(new Spike(this.horizon, 1100, 0, 50, 50));
-        this.objects.push(new Spike(this.horizon, 1200, 0, 50, 50));
+
+        this.startX = 1500;
+
+        // spikes
+        this.objects.push(new Spike(this.horizon, this.startX+50, 0, 50, 50));
+        this.objects.push(new Spike(this.horizon, this.startX+100, 0, 50, 50));
+        this.objects.push(new Spike(this.horizon, this.startX+150, 0, 50, 50));
+        
+        // blocks
+        this.objects.push(new Block(this.horizon, this.startX, 0, 50, 50));
+        this.objects.push(new Block(this.horizon, this.startX+200, 0, 50, 50));
     }
 
     jump() {
-        this.player.speed = 10;
+        if(this.player.speed == 0) this.player.speed = 5;
     }
 
     run() {
