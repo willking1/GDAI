@@ -1,7 +1,8 @@
 class Player {
-    constructor(width, height) {
+    constructor(horizon, width, height) {
+        this.horizon = horizon;
         this.x = canvas.width * 0.5 - width * 0.5 - 300;
-        this.y = canvas.height * 0.5 - height * 0.5;
+        this.y = 0;
         this.width = width;
         this.height = height;
         this.speed = 0;
@@ -9,6 +10,6 @@ class Player {
 
     draw() {
         ctx.fillStyle = "blue";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x, this.horizon-this.y-this.height, this.width, this.height);
     }
 }

@@ -2,13 +2,9 @@ class Game {
     
     constructor() {
         this.horizon = canvas.height * 0.5;
-        this.player = new Player(50, 50);
-        this.spikes = [new Spike(800, this.horizon, 30, 30)];
-    }
-
-    run() {
-        this.draw();
-        this.move();
+        this.player = new Player(this.horizon, 50, 50);
+        this.objects = [];
+        this.map();
     }
 
     draw() {  
@@ -22,13 +18,11 @@ class Game {
         this.player.draw();
 
         //draw spikes
-        for(let i=0; i<this.spikes.length; i++) {
-            this.spikes[i].draw();
+        for(let i=0; i<this.objects.length; i++) {
+            if(this.objects[i].x < canvas.width) {
+                this.objects[i].draw();
+            }
         }
-    }
-
-    jump() {
-        this.player.speed = 10;
     }
 
     move() {
@@ -37,8 +31,23 @@ class Game {
             this.player.speed--;
             if(this.player.speed == -10) this.player.speed = 0;
         }
-        for(let i=0; i<this.spikes.length; i++) {
-            this.spikes[i].x--;
+        for(let i=0; i<this.objects.length; i++) {
+            this.objects[i].x--;
         }
+    }
+
+    map() {
+        this.objects.push(new Spike(this.horizon, 1000, 0, 50, 50));
+        this.objects.push(new Spike(this.horizon, 1100, 0, 50, 50));
+        this.objects.push(new Spike(this.horizon, 1200, 0, 50, 50));
+    }
+
+    jump() {
+        this.player.speed = 10;
+    }
+
+    run() {
+        this.draw();
+        this.move();
     }
 }
