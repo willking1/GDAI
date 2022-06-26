@@ -14,12 +14,19 @@ function setup() {
 setup();
 
 function start() {
-    gameID = setInterval(game.draw());
+    gameID = setInterval(update);
+}
+
+function update() {
+    game.run();
 }
 
 canvas.addEventListener("click", () => {
     if(!started) {
         start();
         started = true;
+    } else {
+        game.jump();   
     }
 })
+
